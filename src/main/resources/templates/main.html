@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Main</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Choose your action: </h1>
+<a href="/book">Work with database books</a>
+<a href="/customer">Work with database customers</a>
+<a href="/purchase">Work with database purchase</a>
+<a href="/shop">Work with database shops</a>
+<br>
+<h2>Task 2 </h2>
+<a href="book/books/distinctName">2.a)Все различные названия книг</a>
+<a href="book/books/distinctCost">2.a)Все различные стоимости книг</a>
+<a href="/customer/customers/distinctLocation">2.b)Все различные районы проживания покупателей</a>
+<a href="/purchase/purchases/getDistinctDate">2.c)Все различные месяцы, когда производились покупки</a>
+<h2>Task 3 </h2>
+<a href="/customer/customers/getNovgorod">3.a)фамилии и размер скидки всех покупателей, проживающих в Нижегородском районе</a>
+<br>
+<a href="/shop/shops/getTaskB">3.b)Названия магазинов Сормовского или Советского районов</a>
+<br>
+<a href="/book/books/getNameAndCost">3.b)c)Названия и стоимость книг, в которых встречается слово Windows,
+    или стоящих более 20000 руб.</a>
+<br>
+<h2>Task 4</h2>
+<a href="/purchase/purchases/getSurnameAndName">4.a)Фамилия покупателя и название магазина, где производилась покупка</a>
+<a href="/purchase/purchases/getDateAndSurname">2.b)Дата, фамилия покупателя, скидка, название и количество купленных книг</a>
+
+<h2>Task 5</h2>
+<a href="/purchase/purchases/getBigCost">
+    5.a)номер заказа, фамилию покупателя и дату для покупок, в которых было продано книг на сумму не меньшую чем 60000 руб</a>
+<br>
+<a href="/purchase/purchases/getSimilarLocation">
+    5.b) покупки, сделанные покупателем в своем районе не ранее марта месяца. Вывести фамилию покупателя, район, дату</a>
+<br>
+
+<a href="/purchase/purchases/getDiscount">
+    5.c)Магазины, расположенные в любом районе, кроме Автозаводского, где покупали книги те, у кого скидка от 10 до 15 %</a>
+<br>
+
+<a href="/purchase/purchases/getBooks">
+    5.d)	данные по покупке книг (название, район складирования, количество), приобретенных в районе складирования и
+    содержащихся в запасе более 10 штук</a>
+<br>
+
+</body>
+</html>
