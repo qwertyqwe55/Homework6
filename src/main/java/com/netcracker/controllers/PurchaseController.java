@@ -5,6 +5,8 @@ import com.netcracker.models.Book;
 import com.netcracker.models.Purchase;
 import com.netcracker.repositories.BookRepository;
 import com.netcracker.repositories.PurchaseRepository;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -91,35 +93,45 @@ public class PurchaseController {
         return response;
     }
 
+
+    @ApiOperation(value = "Фамилия покупателя и название магазина, где производилась покупка")
     @GetMapping("/purchases/getSurnameAndName")
     public List<String> getSurnameAndName(){
         return purchaseRepository.getSurnameAndName();
     }
 
+    @ApiOperation(value = "Все различные месяцы, когда производились покупки")
     @GetMapping("/purchases/getDistinctDate")
     public List<Date> getDistinctDate(){
         return purchaseRepository.getDistinctDate();
     }
 
+    @ApiOperation(value = "покупки, сделанные покупателем в своем районе не ранее марта месяца.")
     @GetMapping("/purchases/getSimilarLocation")
     public List<String> getSimilarLocation(){
         return purchaseRepository.getSimilarLocation();
     }
+
+    @ApiOperation(value = "номер заказа, фамилию покупателя и дату для покупок, в которых было продано книг на сумму не меньшую чем 60000 руб")
     @GetMapping("/purchases/getBigCost")
     public List<String> getBigCost(){
         return purchaseRepository.getBigCost();
     }
 
+    @ApiOperation(value = "Магазины, расположенные в любом районе, кроме Автозаводского, где покупали книги те, у кого скидка от 10 до 15 %")
     @GetMapping("/purchases/getDiscount")
     public List<String> getDiscount(){
         return purchaseRepository.getDiscount();
     }
 
+    @ApiOperation(value = "данные по покупке книг (название, район складирования, количество), приобретенных в районе складирования и\n" +
+            "    содержащихся в запасе более 10 штук")
     @GetMapping("/purchases/getBooks")
     public List<String> getBooks(){
         return purchaseRepository.getBooks();
     }
 
+    @ApiOperation(value = "Дата, фамилия покупателя, скидка, название и количество купленных книг")
     @GetMapping("/purchases/getDateAndSurname")
     public List<String> getDateAndSurname(){
         return purchaseRepository.getDateAndSurname();

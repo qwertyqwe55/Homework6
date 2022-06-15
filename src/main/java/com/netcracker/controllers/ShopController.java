@@ -6,6 +6,8 @@ import com.netcracker.models.Book;
 import com.netcracker.models.Shop;
 import com.netcracker.repositories.BookRepository;
 import com.netcracker.repositories.ShopRepository;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -89,6 +91,7 @@ public class ShopController {
         return response;
     }
 
+    @ApiOperation(value = "Названия магазинов Сормовского или Советского районов")
     @GetMapping("/shops/getTaskB")
     public List<String> getTaskB(){
         return shopRepository.getNames();

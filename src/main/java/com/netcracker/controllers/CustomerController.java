@@ -5,6 +5,8 @@ import com.netcracker.models.Book;
 import com.netcracker.models.Customer;
 import com.netcracker.repositories.BookRepository;
 import com.netcracker.repositories.CustomerRepository;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -87,11 +89,14 @@ public class CustomerController {
         return response;
     }
 
+    @ApiOperation(value = "Все различные районы проживания покупателей")
     @GetMapping("/customers/distinctLocation")
     public List<String> getDistinctLocation(){
         return customerRepository.getDistinctLocation();
     }
 
+
+    @ApiOperation(value = "фамилии и размер скидки всех покупателей, проживающих в Нижегородском районе")
     @GetMapping("/customers/getNovgorod")
     public List<String> getNizniiNovgorod(){
         return customerRepository.getNizniiNovgorod();

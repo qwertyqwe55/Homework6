@@ -3,6 +3,8 @@ package com.netcracker.controllers;
 import com.netcracker.exceptions.ResourceNotFoundException;
 import com.netcracker.models.Book;
 import com.netcracker.repositories.BookRepository;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +33,6 @@ public class BookController {
                 orElseThrow(() -> new ResourceNotFoundException("Book not found for this id :: " + bookId));
         return ResponseEntity.ok().body(book);
     }
-
     @PostMapping("/books")
     public Book createBook(@RequestBody Book book) {
         return bookRepository.save(book);
@@ -96,16 +97,21 @@ public class BookController {
         return response;
     }
 
+
+    @ApiOperation(value = "Все различные названия книг")
     @GetMapping("books/distinctName")
     public List<String> getDistinctName(){
         return bookRepository.getDistinctName();
     }
 
+    @ApiOperation(value = "Все различные стоимости книг")
     @GetMapping("books/distinctCost")
     public List<Integer> getDistinctCost(){
         return bookRepository.getDistinctCost();
     }
 
+    @ApiOperation(value = "Названия и стоимость книг, в которых встречается слово Windows," +
+            "или стоящих более 20000 руб")
     @GetMapping("books/getNameAndCost")
     public List<String> getNameAndCost(){
         bookRepository.save(new Book(10,"WINDOWS or Linux",100,"Moscow",10));
