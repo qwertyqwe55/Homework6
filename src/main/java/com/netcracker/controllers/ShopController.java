@@ -26,8 +26,8 @@ public class ShopController {
         return shopRepository.findAll();
     }
 
-    @GetMapping("/shops/id")
-    public ResponseEntity<Shop> getShopById(@RequestParam("id") Long id
+    @GetMapping("/shops/{id}")
+    public ResponseEntity<Shop> getShopById(@PathVariable(value = "id") Long id
     ) throws ResourceNotFoundException {
         Shop shop =  shopRepository.findById(id).
                 orElseThrow(() -> new ResourceNotFoundException("Shop not found for this id :: " + id));
@@ -35,14 +35,14 @@ public class ShopController {
     }
 
     @PostMapping("/shops")
-    public Shop createShop( @ModelAttribute Shop shop) {
+    public Shop createShop( @RequestBody Shop shop) {
         return shopRepository.save(shop);
     }
 
 
-    @PutMapping("/shops/id")
-    public ResponseEntity<Shop> updateShop(@RequestParam("id") Long ID,
-                                           @ModelAttribute Shop shopDetails) throws ResourceNotFoundException {
+    @PutMapping("/shops/{id}")
+    public ResponseEntity<Shop> updateShop(@PathVariable(value = "id") Long ID,
+                                           @RequestBody Shop shopDetails) throws ResourceNotFoundException {
         Shop shop = shopRepository.findById(ID)
                 .orElseThrow(() -> new ResourceNotFoundException("Shop not found for this id :: " + ID));
 
@@ -55,9 +55,9 @@ public class ShopController {
         return ResponseEntity.ok(updateShop);
     }
 
-    @PutMapping("/shops/id/location")
-    public ResponseEntity<Shop> updateLocationShop(@RequestParam("id") Long id,
-                                               @RequestParam("location") String location) throws ResourceNotFoundException {
+    @PutMapping("/shops/{id}/{location}")
+    public ResponseEntity<Shop> updateLocationShop(@PathVariable(value = "id") Long id,
+                                                   @PathVariable(value = "location")String location) throws ResourceNotFoundException {
         Shop shop = shopRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Shop not found for this id :: " + id));
         shop.setLocation(location);
@@ -65,9 +65,9 @@ public class ShopController {
         return ResponseEntity.ok(updateShop);
     }
 
-    @PutMapping("/shops/id/name")
-    public ResponseEntity<Shop> updateNameShop(@RequestParam("id") Long ID,
-                                                  @RequestParam("name") String name) throws ResourceNotFoundException {
+    @PutMapping("/shops/{id}/{name}")
+    public ResponseEntity<Shop> updateNameShop(@PathVariable(value = "id") Long ID,
+                                               @PathVariable(value = "name") String name) throws ResourceNotFoundException {
         Shop shop = shopRepository.findById(ID)
                 .orElseThrow(() -> new ResourceNotFoundException("Shop not found for this id :: " + ID));
         shop.setName(name);
@@ -77,8 +77,8 @@ public class ShopController {
 
 
 
-    @DeleteMapping("/shops/id")
-    public Map<String, Boolean> deleteEmployee(@RequestParam("id") Long ID)
+    @DeleteMapping("/shops/{id}")
+    public Map<String, Boolean> deleteEmployee(@PathVariable(value = "id") Long ID)
             throws ResourceNotFoundException {
         Shop shop = shopRepository.findById(ID)
                 .orElseThrow(() -> new ResourceNotFoundException("Shop not found for this id :: " + ID));

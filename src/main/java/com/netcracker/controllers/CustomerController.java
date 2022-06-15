@@ -25,8 +25,8 @@ public class CustomerController {
         return customerRepository.findAll();
     }
 
-    @GetMapping("/customers/id")
-    public ResponseEntity<Customer> getCustomerById(@RequestParam("id") Long customerId
+    @GetMapping("/customers/{id}")
+    public ResponseEntity<Customer> getCustomerById(@PathVariable(value = "id") Long customerId
     ) throws ResourceNotFoundException {
         Customer customer = customerRepository.findById(customerId).
                 orElseThrow(() -> new ResourceNotFoundException("customer not found for this id :: " + customerId));
@@ -34,14 +34,14 @@ public class CustomerController {
     }
 
     @PostMapping("/customers")
-    public Customer createCustomer( @ModelAttribute Customer customer) {
+    public Customer createCustomer( @RequestBody Customer customer) {
         return customerRepository.save(customer);
     }
 
 
-    @PutMapping("/customers/id")
-    public ResponseEntity<Customer> updateCustomer(@RequestParam("id") Long customerID,
-                                           @ModelAttribute Customer customerDetails) throws ResourceNotFoundException {
+    @PutMapping("/customers/{id}")
+    public ResponseEntity<Customer> updateCustomer(@PathVariable(value = "id") Long customerID,
+                                           @RequestBody Customer customerDetails) throws ResourceNotFoundException {
         Customer customer = customerRepository.findById(customerID)
                 .orElseThrow(() -> new ResourceNotFoundException("customer not found for this id :: " + customerID));
 
@@ -53,9 +53,9 @@ public class CustomerController {
         return ResponseEntity.ok(updateCustomer);
     }
 
-    @PutMapping("/customers/id/surname")
-    public ResponseEntity<Customer> updateSurnameCustomer(@RequestParam(value = "id") Long customerID,
-                                               @RequestParam("surname") String surname) throws ResourceNotFoundException {
+    @PutMapping("/customers/{id}/{surname}")
+    public ResponseEntity<Customer> updateSurnameCustomer(@PathVariable(value = "id") Long customerID,
+                                               @PathVariable(value = "surname") String surname) throws ResourceNotFoundException {
         Customer customer = customerRepository.findById(customerID)
                 .orElseThrow(() -> new ResourceNotFoundException("customer not found for this id :: " + customerID));
         customer.setSurname(surname);
@@ -63,9 +63,9 @@ public class CustomerController {
         return ResponseEntity.ok(updateCustomer);
     }
 
-    @PutMapping("/customers/id/location")
-    public ResponseEntity<Customer> updateLocationCustomer(@RequestParam(value = "id") Long customerID,
-                                                  @RequestParam(value = "location") String location) throws ResourceNotFoundException {
+    @PutMapping("/customers/{id}/{location}")
+    public ResponseEntity<Customer> updateLocationCustomer(@PathVariable(value = "id") Long customerID,
+                                                  @PathVariable(value = "location") String location) throws ResourceNotFoundException {
         Customer customer = customerRepository.findById(customerID)
                 .orElseThrow(() -> new ResourceNotFoundException("customer not found for this id :: " + customerID));
         customer.setLocation(location);
@@ -75,8 +75,8 @@ public class CustomerController {
 
 
 
-    @DeleteMapping("/customers/id")
-    public Map<String, Boolean> deleteCustomer(@RequestParam("id") Long customerID)
+    @DeleteMapping("/customers/{id}")
+    public Map<String, Boolean> deleteCustomer(@PathVariable(value = "id") Long customerID)
             throws ResourceNotFoundException {
         Customer customer = customerRepository.findById(customerID)
                 .orElseThrow(() -> new ResourceNotFoundException("customer not found for this id :: " + customerID));

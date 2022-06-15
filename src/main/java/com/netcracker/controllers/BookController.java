@@ -24,8 +24,8 @@ public class BookController {
         return bookRepository.findAll();
     }
 
-    @GetMapping("/books/id")
-    public ResponseEntity<Book> getBookById(@RequestParam("id") Long bookId
+    @GetMapping("/books/{id}")
+    public ResponseEntity<Book> getBookById(@PathVariable(value = "id") Long bookId
                                             ) throws ResourceNotFoundException {
         Book book = bookRepository.findById(bookId).
                 orElseThrow(() -> new ResourceNotFoundException("Book not found for this id :: " + bookId));
@@ -33,14 +33,14 @@ public class BookController {
     }
 
     @PostMapping("/books")
-    public Book createBook(@ModelAttribute Book book) {
+    public Book createBook(@RequestBody Book book) {
         return bookRepository.save(book);
     }
 
 
-    @PutMapping("/books/id")
-    public ResponseEntity<Book> updateBook(@RequestParam("id") Long bookID,
-                                           @ModelAttribute Book bookDetails) throws ResourceNotFoundException {
+    @PutMapping("/books/{id}")
+    public ResponseEntity<Book> updateBook(@PathVariable(value = "id") Long bookID,
+                                           @RequestBody Book bookDetails) throws ResourceNotFoundException {
         Book book = bookRepository.findById(bookID)
                 .orElseThrow(() -> new ResourceNotFoundException("Book not found for this id :: " + bookID));
 
@@ -53,9 +53,9 @@ public class BookController {
         return ResponseEntity.ok(updateBook);
     }
 
-    @PutMapping("/books/id/name")
-    public ResponseEntity<Book> updateNameBook(@RequestParam("id") Long bookID,
-                                               @RequestParam("name") String nameBook) throws ResourceNotFoundException {
+    @PutMapping("/books/{id}/{name}")
+    public ResponseEntity<Book> updateNameBook(@PathVariable(value = "id") Long bookID,
+                                               @PathVariable(value = "name") String nameBook) throws ResourceNotFoundException {
         Book book = bookRepository.findById(bookID)
                 .orElseThrow(() -> new ResourceNotFoundException("Book not found for this id :: " + bookID));
         book.setName(nameBook);
@@ -63,9 +63,9 @@ public class BookController {
         return ResponseEntity.ok(updateBook);
     }
 
-    @PutMapping("/books/id/storage")
-    public ResponseEntity<Book> updateStorageBook(@RequestParam("id") Long bookID,
-                                               @RequestParam("storage") String storageBook) throws ResourceNotFoundException {
+    @PutMapping("/books/{id}/{storage}")
+    public ResponseEntity<Book> updateStorageBook(@PathVariable(value = "id") Long bookID,
+                                                  @PathVariable(value = "storage") String storageBook) throws ResourceNotFoundException {
         Book book = bookRepository.findById(bookID)
                 .orElseThrow(() -> new ResourceNotFoundException("Book not found for this id :: " + bookID));
         book.setStorage(storageBook);
@@ -73,9 +73,9 @@ public class BookController {
         return ResponseEntity.ok(updateBook);
     }
 
-    @PutMapping("/books/id/cost")
-    public ResponseEntity<Book> updateStorageBook(@RequestParam(value = "id") Long bookID,
-                                                  @RequestParam(value = "cost") Integer costBook) throws ResourceNotFoundException {
+    @PutMapping("/books/{id}/{cost}")
+    public ResponseEntity<Book> updateStorageBook(@PathVariable(value = "id") Long bookID,
+                                                  @PathVariable(value = "cost")Integer costBook) throws ResourceNotFoundException {
         Book book = bookRepository.findById(bookID)
                 .orElseThrow(() -> new ResourceNotFoundException("Book not found for this id :: " + bookID));
         book.setCost(costBook);
@@ -84,8 +84,8 @@ public class BookController {
     }
 
 
-    @DeleteMapping("/books/id")
-    public Map<String, Boolean> deleteBook(@RequestParam("id") Long bookID)
+    @DeleteMapping("/books/{id}")
+    public Map<String, Boolean> deleteBook(@PathVariable(value = "id") Long bookID)
             throws ResourceNotFoundException {
         Book book = bookRepository.findById(bookID)
                 .orElseThrow(() -> new ResourceNotFoundException("Book not found for this id :: " + bookID));

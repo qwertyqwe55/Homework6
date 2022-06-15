@@ -17,28 +17,28 @@ public class MainController {
         return "main";
     }
 
-    @GetMapping("/book")
-    public String getBook(Model model){
-        model.addAttribute("book", new Book());
-        return "book";
-    }
-
-    @GetMapping("/customer")
-    public String getCustomer(Model model){
-        model.addAttribute("customer", new Customer());
-        return "customer";
-    }
-
-    @GetMapping("/shop")
-    public String getShop(Model model){
-        model.addAttribute("shop", new Shop());
-        return "shop";
-    }
-
-    @GetMapping("/purchase")
-    public String getPurchase(Model model){
-        model.addAttribute("purchase", new Purchase());
-        return "purchase";
-    }
+//    @GetMapping("/book")
+//    public String getBook(Model model){
+//        model.addAttribute("book", new Book());
+//        return "book";
+//    }
+//
+//    @GetMapping("/customer")
+//    public String getCustomer(Model model){
+//        model.addAttribute("customer", new Customer());
+//        return "customer";
+//    }
+//
+//    @GetMapping("/shop")
+//    public String getShop(Model model){
+//        model.addAttribute("shop", new Shop());
+//        return "shop";
+//    }
+//
+//    @GetMapping("/purchase")
+//    public String getPurchase(Model model){
+//        model.addAttribute("purchase", new Purchase());
+//        return "purchase";
+//    }
 
 }

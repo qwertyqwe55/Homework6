@@ -26,8 +26,8 @@ public class PurchaseController {
         return purchaseRepository.findAll();
     }
 
-    @GetMapping("/purchases/id")
-    public ResponseEntity<Purchase> getPurchaseById(@RequestParam("id") Long id
+    @GetMapping("/purchases/{id}")
+    public ResponseEntity<Purchase> getPurchaseById(@PathVariable(value = "id") Long id
     ) throws ResourceNotFoundException {
         Purchase purchase = purchaseRepository.findById(id).
                 orElseThrow(() -> new ResourceNotFoundException("Purchase not found for this id :: " + id));
@@ -35,14 +35,14 @@ public class PurchaseController {
     }
 
     @PostMapping("/purchases")
-    public Purchase createPurchase(@ModelAttribute Purchase purchase) {
+    public Purchase createPurchase(@RequestBody Purchase purchase) {
         return purchaseRepository.save(purchase);
     }
 
 
-    @PutMapping("/purchases/id")
-    public ResponseEntity<Purchase> updatePurchase(@RequestParam("id") Long ID,
-                                           @ModelAttribute Purchase purchaseDetails) throws ResourceNotFoundException {
+    @PutMapping("/purchases/{id}")
+    public ResponseEntity<Purchase> updatePurchase(@PathVariable(value = "id") Long ID,
+                                           @RequestBody Purchase purchaseDetails) throws ResourceNotFoundException {
         Purchase purchase = purchaseRepository.findById(ID)
                 .orElseThrow(() -> new ResourceNotFoundException("Purchase not found for this id :: " + ID));
 
@@ -57,9 +57,9 @@ public class PurchaseController {
         return ResponseEntity.ok(updatePurchase);
     }
 
-    @PatchMapping("/purchase/id/cost")
-    public ResponseEntity<Purchase> updateCostPurchase(@RequestParam("id") Long ID,
-                                               @RequestParam("cost") Integer cost) throws ResourceNotFoundException {
+    @PatchMapping("/purchase/{id}/{cost}")
+    public ResponseEntity<Purchase> updateCostPurchase(@PathVariable(value = "id") Long ID,
+                                               @PathVariable(value = "cost") Integer cost) throws ResourceNotFoundException {
         Purchase purchase = purchaseRepository.findById(ID)
                 .orElseThrow(() -> new ResourceNotFoundException("Purchase not found for this id :: " + ID));
         purchase.setCost(cost);
@@ -67,9 +67,9 @@ public class PurchaseController {
         return ResponseEntity.ok(updatePurchase);
     }
 
-    @PatchMapping("/purchases/id/count")
-    public ResponseEntity<Purchase> updateCountPurchase(@RequestParam("id") Long ID,
-                                                  @RequestParam("count") Integer count) throws ResourceNotFoundException {
+    @PatchMapping("/purchases/{id}/{count}")
+    public ResponseEntity<Purchase> updateCountPurchase(@PathVariable(value = "id") Long ID,
+                                                        @PathVariable(value = "count") Integer count) throws ResourceNotFoundException {
         Purchase purchase = purchaseRepository.findById(ID)
                 .orElseThrow(() -> new ResourceNotFoundException("Purchase not found for this id :: " + ID));
         purchase.setCount(count);
@@ -79,8 +79,8 @@ public class PurchaseController {
 
 
 
-    @DeleteMapping("/purchases/id")
-    public Map<String, Boolean> deleteEmployee(@RequestParam("id") Long ID)
+    @DeleteMapping("/purchases/{id}")
+    public Map<String, Boolean> deleteEmployee(@PathVariable(value = "id") Long ID)
             throws ResourceNotFoundException {
         Purchase purchase = purchaseRepository.findById(ID)
                 .orElseThrow(() -> new ResourceNotFoundException("Purchase not found for this id :: " + ID));
