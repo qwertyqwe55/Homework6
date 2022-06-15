@@ -91,9 +91,9 @@ public class ShopController {
         return response;
     }
 
-    @ApiOperation(value = "Названия магазинов Сормовского или Советского районов")
-    @GetMapping("/shops/getTaskB")
-    public List<String> getTaskB(){
-        return shopRepository.getNames();
+    @ApiOperation(value = "Названия магазинов firstLocation или secondLocation")
+    @GetMapping("/shops/{firstLocation}/{secondLocation}")
+    public List<String> getTaskB(@PathVariable(value = "firstLocation") String firstLocation, @PathVariable(value = "secondLocation") String secondLocation){
+        return shopRepository.getNames(firstLocation,secondLocation);
     }
 }

@@ -27,7 +27,7 @@ public class BookController {
     }
 
     @GetMapping("/books/{id}")
-    public ResponseEntity<Book> getBookById(@PathVariable(value = "id") Long bookId
+    public ResponseEntity<Book> getBookById(@PathVariable(name = "id") Long bookId
                                             ) throws ResourceNotFoundException {
         Book book = bookRepository.findById(bookId).
                 orElseThrow(() -> new ResourceNotFoundException("Book not found for this id :: " + bookId));
@@ -110,13 +110,11 @@ public class BookController {
         return bookRepository.getDistinctCost();
     }
 
-    @ApiOperation(value = "Названия и стоимость книг, в которых встречается слово Windows," +
-            "или стоящих более 20000 руб")
-    @GetMapping("books/getNameAndCost")
-    public List<String> getNameAndCost(){
-        bookRepository.save(new Book(10,"WINDOWS or Linux",100,"Moscow",10));
-        bookRepository.save(new Book(7,"Linux",300000,"Moscow",10));
-        return bookRepository.getBooksByNameAndCost();
+    @ApiOperation(value = "Названия и стоимость книг, в которых встречается слово name," +
+            "или стоящих более cost")
+    @GetMapping("books/{name}/{cost}")
+    public List<String> getNameAndCost(@PathVariable(value = "name") String name, @PathVariable(value = "cost") Integer cost){
+        return bookRepository.getBooksByNameAndCost(name,cost);
     }
 }
 

@@ -112,23 +112,24 @@ public class PurchaseController {
         return purchaseRepository.getSimilarLocation();
     }
 
-    @ApiOperation(value = "номер заказа, фамилию покупателя и дату для покупок, в которых было продано книг на сумму не меньшую чем 60000 руб")
-    @GetMapping("/purchases/getBigCost")
-    public List<String> getBigCost(){
-        return purchaseRepository.getBigCost();
+    @ApiOperation(value = "номер заказа, фамилию покупателя и дату для покупок, в которых было продано книг на сумму не меньшую чем cost руб")
+    @GetMapping("/purchases/{cost}")
+    public List<String> getBigCost(@PathVariable(value = "cost") Integer cost){
+        return purchaseRepository.getBigCost(cost);
     }
 
-    @ApiOperation(value = "Магазины, расположенные в любом районе, кроме Автозаводского, где покупали книги те, у кого скидка от 10 до 15 %")
-    @GetMapping("/purchases/getDiscount")
-    public List<String> getDiscount(){
-        return purchaseRepository.getDiscount();
+    @ApiOperation(value = "Магазины, расположенные в любом районе, кроме location, где покупали книги те, у кого скидка от minDiscount до maxDiscount%")
+    @GetMapping("/purchases/{location}/{minDiscount}/{maxDiscount}")
+    public List<String> getDiscount(@PathVariable(value = "location") String location, @PathVariable(value = "minDiscount") Integer minDiscount,
+    @PathVariable(value = "maxDiscount") Integer maxDiscount){
+        return purchaseRepository.getDiscount(location, minDiscount, maxDiscount);
     }
 
     @ApiOperation(value = "данные по покупке книг (название, район складирования, количество), приобретенных в районе складирования и\n" +
-            "    содержащихся в запасе более 10 штук")
-    @GetMapping("/purchases/getBooks")
-    public List<String> getBooks(){
-        return purchaseRepository.getBooks();
+            "    содержащихся в запасе более count штук")
+    @GetMapping("/purchases/{count}")
+    public List<String> getBooks(@PathVariable(value = "count") Integer count){
+        return purchaseRepository.getBooks(count);
     }
 
     @ApiOperation(value = "Дата, фамилия покупателя, скидка, название и количество купленных книг")

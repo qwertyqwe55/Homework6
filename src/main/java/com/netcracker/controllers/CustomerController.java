@@ -96,10 +96,10 @@ public class CustomerController {
     }
 
 
-    @ApiOperation(value = "фамилии и размер скидки всех покупателей, проживающих в Нижегородском районе")
-    @GetMapping("/customers/getNovgorod")
-    public List<String> getNizniiNovgorod(){
-        return customerRepository.getNizniiNovgorod();
+    @ApiOperation(value = "фамилии и размер скидки всех покупателей, проживающих в location")
+    @GetMapping("/customers/{location}")
+    public List<String> getNizniiNovgorod(@PathVariable(value = "location") String location){
+        return customerRepository.getNizniiNovgorod(location);
     }
 
 
